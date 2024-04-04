@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
+import "./App.css";
+import axios from "axios";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  // async function axiosGet() {
+  //   const data = await axios.get(
+  //     "https://api.unsplash.com/photos?client_id=ahhcIzD1njr8w5SDdkwapZgiC8vxXk9AN6nr5KfkI3k"
+  //   );
+  //   console.log(data);
+  // }
+//   useEffect(() => {
+//   async function axiosGet() {
+//     // const params = {
+//     //   query: "cat",
+//     // }
+//     const galId = "ahhcIzD1njr8w5SDdkwapZgiC8vxXk9AN6nr5KfkI3k";
+//     const searchText = "office";
+//     const res = await axios.get(
+//       `https://api.unsplash.com/search/photos?client_id=ahhcIzD1njr8w5SDdkwapZgiC8vxXk9AN6nr5KfkI3k&query=cat`
+//     );
+//     console.log(res.data);
+//   }
+
+//   axiosGet();
+// })
+  async function axiosGet() {
+    // const params = {
+    //   query: "cat",
+    // }
+    const galId = "ahhcIzD1njr8w5SDdkwapZgiC8vxXk9AN6nr5KfkI3k";
+    const searchText = "office";
+    const res = await axios.get(
+      `https://api.unsplash.com/search/photos?client_id=${galId}&query=${searchText}`
+    );
+    console.log(res.data);
+  }
+
+  axiosGet();
+
+  return <></>;
 }
 
-export default App
+export default App;
