@@ -1,4 +1,10 @@
 import { useEffect, useState } from "react";
+import SearchBar from "./components/search-bar/SearchBar";
+import Loader from "./components/loader/Loader";
+import ErrorMessage from "./components/error-message/ErrorMessage";
+import ImageGallery from "./components/image-gallery/ImageGallery";
+import LoadMoreBtn from "./components/load-more-btn/LoadMoreBtn";
+import ImageModal from "./components/image-modal/ImageModal";
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import "./App.css";
@@ -16,7 +22,16 @@ function App() {
     getInfoServer("cat", 1, 15);
   });
 
-  return <></>;
+  return (
+    <>
+      <SearchBar />
+      <Loader />
+      <ErrorMessage />
+      <ImageGallery />
+      <LoadMoreBtn />
+      <ImageModal />
+    </>
+  );
 }
 
 export default App;
