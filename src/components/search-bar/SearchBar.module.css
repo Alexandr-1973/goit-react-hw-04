@@ -1,0 +1,10 @@
+.btn {
+    padding: 0;
+    border-radius: 4px;
+    margin-left: 16px;
+    border: none;
+}
+
+.input {
+    width: 164px;
+}

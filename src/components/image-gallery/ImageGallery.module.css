@@ -1,0 +1,17 @@
+.fotos-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    /* column-gap: 16px;
+  row-gap: 16px; */
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.foto {
+    margin: 0;
+     width: 360px;
+  height: 152px;
+  object-fit: cover;
+  cursor: pointer;
+}

@@ -1,19 +1,20 @@
 import axios from "axios";
 
-async function fetchServer(searchText, perPage, pageNumber) {
+async function fetchServer(topic) {
   const BASE_URL = "https://api.unsplash.com";
   const SEARCH_HEADER = "/search/photos";
   const Client_ID = "ahhcIzD1njr8w5SDdkwapZgiC8vxXk9AN6nr5KfkI3k";
+  const PER_PAGE = 12;
   const url = `${BASE_URL}${SEARCH_HEADER}`;
   const params = {
     client_id: Client_ID,
-    query: searchText,
+    query: topic,
     // image_type: "photo",
     // orientation: "horizontal",
     // safesearch: true,
     // q: searchText,
-    per_page: perPage,
-    page: pageNumber,
+    per_page: PER_PAGE,
+    // page: pageNumber,
   };
   const res = await axios.get(url, { params });
   return res.data;

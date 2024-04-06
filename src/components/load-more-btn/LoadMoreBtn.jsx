@@ -1,5 +1,5 @@
 const LoadMoreBtn = () => {
-  return <button></button>;
+  return <button>Load more</button>;
 };
 
 export default LoadMoreBtn;

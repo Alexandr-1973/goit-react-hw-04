@@ -12,22 +12,46 @@ import "./App.css";
 import fetchServer from "./api/fotos-api";
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const [fotos, setFotos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-  useEffect(() => {
-    async function getInfoServer(searchText, pageNumber, perPage) {
-      const infoData = await fetchServer(searchText, pageNumber, perPage);
-      console.log(infoData);
+  const onSubmit = async (topic) => {
+    try {
+      setFotos([]);
+      setError(false);
+      setLoading(true);
+      const data = await fetchServer(topic);
+// console.log(data);
+
+      setFotos(data.results);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
     }
-    getInfoServer("cat", 1, 15);
-  });
+  };
+
+  // // const [count, setCount] = useState(0)
+
+  // useEffect(() => {
+  //   async function getInfoServer(searchText, pageNumber, perPage) {
+  //     const infoData = await fetchServer(searchText, pageNumber, perPage);
+  //     console.log(infoData);
+  //   }
+  //   getInfoServer("cat", 1, 15);
+  // });
+
+  // function onSubmit() {
+
+  // }
 
   return (
     <>
-      <SearchBar />
-      <Loader />
-      <ErrorMessage />
-      <ImageGallery />
+      <SearchBar onSubmit={onSubmit} />
+      {loading && <Loader />}
+      {error && <ErrorMessage />}
+      {fotos.length > 0 && <ImageGallery items={fotos} />}
       <LoadMoreBtn />
       <ImageModal />
     </>
