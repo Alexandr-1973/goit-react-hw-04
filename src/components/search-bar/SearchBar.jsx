@@ -1,38 +1,40 @@
-import css from "./SearchBar.module.css"
+import toast, { Toaster } from "react-hot-toast";
+import css from "./SearchBar.module.css";
 
 const SearchBar = ({ onSubmit }) => {
-
-const handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const form = event.target;
-		const topic = form.elements.topic.value;
-    
-		// Якщо текстове поле порожнє, виводимо повідомлення 
-		// і припиняємо виконання функції.
-		if(form.elements.topic.value.trim() === "") {
-			alert("Please enter search term!")
-			return;
-		}
+    const notify = () =>
+      toast.error("Please enter search topic!", {
+        duration: 3000,
+        style: {
+          backgroundColor: "lightgreen",
+        },
+      });
 
-		// У протилежному випадку викликаємо пропс 
-		// і передаємо йому значення поля
-		onSubmit(topic);
-    form.reset();
+    if (!event.target.elements.topic.value) {
+      notify();
+      return;
+    } else {
+      onSubmit(event);
+    }
   };
-
 
   return (
     <header>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={css.form}>
         <input
           name="topic"
           type="text"
-            autoComplete="off"
-            autoFocus
+          autoComplete="off"
+          autoFocus
           placeholder="Search images and photos"
           className={css.input}
         />
-        <button type="submit" className={css.btn}>Search</button>
+        <button type="submit" className={css.btn}>
+          Search
+        </button>
+        <Toaster />
       </form>
     </header>
   );

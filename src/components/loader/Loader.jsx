@@ -7,7 +7,11 @@ const Loader = () => {
       height="80"
       width="80"
       ariaLabel="fidget-spinner-loading"
-      wrapperStyle={{}}
+      wrapperStyle={{
+        paddingLeft: "100px",
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}
       wrapperClass="fidget-spinner-wrapper"
     />
   );

@@ -1,26 +1,16 @@
-import css from "./ImageGallery.module.css"
+import ImageCard from "../image-card/ImageCard";
+import css from "./ImageGallery.module.css";
 
-const ImageGallery = ({ items }) => {
-  
-  console.log(items);
+const ImageGallery = ({ items, setFoto }) => {
   return (
     <ul className={css["fotos-gallery"]}>
-
-      {/* Набір елементів списку із зображеннями */}
-
       {items.map((item) => {
-        
         return (
-          <li key={item.id}> 
-        <div>
-          <img src={item.urls.small} alt={item.alt_description} className={css.foto}/>
-        </div>
-      </li>
-)
-
+          <li key={item.id}>
+            <ImageCard item={item} setFoto={setFoto} />
+          </li>
+        );
       })}
-      
-
     </ul>
   );
 };

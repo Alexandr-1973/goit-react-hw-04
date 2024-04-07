@@ -1,59 +1,72 @@
 import { useEffect, useState } from "react";
+import "./App.css";
 import SearchBar from "./components/search-bar/SearchBar";
 import Loader from "./components/loader/Loader";
 import ErrorMessage from "./components/error-message/ErrorMessage";
 import ImageGallery from "./components/image-gallery/ImageGallery";
 import LoadMoreBtn from "./components/load-more-btn/LoadMoreBtn";
 import ImageModal from "./components/image-modal/ImageModal";
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import "./App.css";
-// import axios from "axios";
 import fetchServer from "./api/fotos-api";
 
 function App() {
   const [fotos, setFotos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [page, setPage] = useState(1);
+  const [topicValue, setTopicValue] = useState("");
+  const [showBtn, setShowBtn] = useState(false);
+  const [modalFoto, setModalFoto] = useState("");
+  const [isModal, setIsModal] = useState(false);
 
-  const onSubmit = async (topic) => {
-    try {
+  useEffect(() => {
+    const serverQuery = async () => {
+      try {
+        setError(false);
+        setLoading(true);
+        const data = await fetchServer(topicValue, page);
+        const { results, total_pages } = data;
+        setFotos([...fotos, ...results]);
+        setShowBtn(Boolean(total_pages && total_pages !== page));
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    serverQuery();
+  }, [topicValue, page]);
+
+  const onSubmit = (event) => {
+    const topic = event.target.elements.topic.value.trim();
+    if (topic !== topicValue) {
       setFotos([]);
-      setError(false);
-      setLoading(true);
-      const data = await fetchServer(topic);
-// console.log(data);
-
-      setFotos(data.results);
-    } catch (error) {
-      setError(true);
-    } finally {
-      setLoading(false);
+      setPage(1);
+      setTopicValue(topic);
     }
+    event.target.reset();
   };
 
-  // // const [count, setCount] = useState(0)
+  const onLoadMore = () => {
+    setPage(page + 1);
+  };
 
-  // useEffect(() => {
-  //   async function getInfoServer(searchText, pageNumber, perPage) {
-  //     const infoData = await fetchServer(searchText, pageNumber, perPage);
-  //     console.log(infoData);
-  //   }
-  //   getInfoServer("cat", 1, 15);
-  // });
+  const setFoto = (value) => {
+    setModalFoto(value);
+    setIsModal(true);
+  };
 
-  // function onSubmit() {
-
-  // }
+  const closeModal = () => {
+    setIsModal(false);
+  };
 
   return (
     <>
       <SearchBar onSubmit={onSubmit} />
-      {loading && <Loader />}
       {error && <ErrorMessage />}
-      {fotos.length > 0 && <ImageGallery items={fotos} />}
-      <LoadMoreBtn />
-      <ImageModal />
+      {fotos.length > 0 && <ImageGallery items={fotos} setFoto={setFoto} />}
+      {loading && <Loader />}
+      {showBtn && <LoadMoreBtn onLoadMore={onLoadMore} />}
+      <ImageModal isOpen={isModal} onClose={closeModal} modalFoto={modalFoto} />
     </>
   );
 }

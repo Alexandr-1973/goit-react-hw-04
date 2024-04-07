@@ -1,17 +1,10 @@
 .fotos-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    /* column-gap: 16px;
-  row-gap: 16px; */
+  display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   justify-content: center;
   align-items: center;
-}
-
-.foto {
-    margin: 0;
-     width: 360px;
-  height: 152px;
-  object-fit: cover;
-  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
 }
