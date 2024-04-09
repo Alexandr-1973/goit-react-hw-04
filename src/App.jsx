@@ -50,7 +50,7 @@ function App() {
     setPage(page + 1);
   };
 
-  const setFoto = (value) => {
+  const handleClick = (value) => {
     setModalFoto(value);
     setIsModal(true);
   };
@@ -63,7 +63,9 @@ function App() {
     <>
       <SearchBar onSubmit={onSubmit} />
       {error && <ErrorMessage />}
-      {fotos.length > 0 && <ImageGallery items={fotos} setFoto={setFoto} />}
+      {fotos.length > 0 && (
+        <ImageGallery items={fotos} handleClick={handleClick} />
+      )}
       {loading && <Loader />}
       {showBtn && <LoadMoreBtn onLoadMore={onLoadMore} />}
       <ImageModal isOpen={isModal} onClose={closeModal} modalFoto={modalFoto} />

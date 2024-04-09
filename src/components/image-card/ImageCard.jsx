@@ -1,17 +1,13 @@
 import css from "./ImageCard.module.css";
 
-const ImageCard = ({ item, setFoto }) => {
-  const handleClick = () => {
-    setFoto(item.urls.regular);
-  };
-
+const ImageCard = ({ item, handleClick }) => {
   return (
     <div>
       <img
         src={item.urls.small}
         alt={item.alt_description}
         className={css.foto}
-        onClick={handleClick}
+        onClick={() => handleClick(item.urls.regular)}
       />
     </div>
   );
